@@ -16,17 +16,90 @@
   margin-left: 2rem;
 }
 
+/* Navbar Toggle Styles */
+.navbar {
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.95) !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+@media (max-width: 991.98px) {
+    .navbar-collapse {
+        position: fixed;
+        top: 0;
+        right: -280px;
+        width: 280px;
+        height: 100vh;
+        padding: 2rem 1rem;
+        background: white;
+        transition: right 0.3s ease;
+        box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+        z-index: 1050;
+    }
+
+    .navbar-collapse.show {
+        right: 0;
+    }
+
+    .inp-search {
+        width: 100% !important;
+        margin: 1rem 0 !important;
+    }
+
+    .btn-search {
+        width: 100% !important;
+        margin: 0.5rem 0 !important;
+    }
+
+    .d-flex {
+        flex-direction: column;
+    }
+
+    .navbar-nav {
+        margin-top: 1rem;
+    }
+
+    .nav-link {
+        padding: 0.8rem 0;
+        border-bottom: 1px solid #eee;
+    }
+}
+
+/* Close Button */
+.navbar-close {
+    display: none;
+}
+
+@media (max-width: 991.98px) {
+    .navbar-close {
+        display: block;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+}
 </style>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/listings"><i class="fa-solid fa-compass"></i></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" >
-        <span class="navbar-toggler-icon"> </span>
-      
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
+        <a class="navbar-brand" href="/listings">
+            <i class="fa-solid fa-compass"></i>
+        </a>
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+                data-bs-target="#navbarNavAltMarkup">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <!-- Close button for mobile -->
+            <div class="navbar-close d-lg-none">
+                <i class="fas fa-times"></i>
+            </div>
+
+            <div class="navbar-nav">
           <!-- <a class="nav-link " href="/listings">Home</a> -->
           <a class="nav-link" href="/listings">Explore</a>
         </div>
@@ -49,7 +122,30 @@
           <% } %>
         </div>
         
-      </div>
-      
+            <!-- ...existing navbar content... -->
+        </div>
     </div>
-  </nav>
+</nav>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const toggler = document.querySelector('.navbar-toggler');
+    const collapse = document.querySelector('.navbar-collapse');
+    const closeBtn = document.querySelector('.navbar-close');
+
+    function toggleMenu() {
+        collapse.classList.toggle('show');
+        document.body.classList.toggle('overflow-hidden');
+    }
+
+    toggler.addEventListener('click', toggleMenu);
+    closeBtn.addEventListener('click', toggleMenu);
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!collapse.contains(e.target) && !toggler.contains(e.target) && collapse.classList.contains('show')) {
+            toggleMenu();
+        }
+    });
+});
+</script>
