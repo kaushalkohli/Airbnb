@@ -1,20 +1,85 @@
 <% layout("/layouts/boilerplate") %>
 
-<div class="row mt-4 mb-4">
+<style>
+    .h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    
+    margin-left: 5rem;
+    color: #2b2b2b;
+}
 
-    <div class="card col-8 offset-2 show-card">
-        <h2><%= listing.title %></h2>
-        <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="<%= listing.title %>">
-        <div class="card-body">
-           <b> <p class="card-text">
-            <i>listing owner : <%= listing.owner.username %></i></b><br>
-            <%= listing.description %><br>
-            &#8377; <%= listing.price %><br>
-            <%= listing.location %><br>
-            <%= listing.country %><br>
-            </p>
+.show-card {
+    max-width: 800px;
+    margin: 2rem auto;
+    border: none;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.show-img {
+    height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 1rem auto;
+    width: 95%;
+    transition: all 0.5s ease;
+
+}
+.show-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+.listing-info {
+    line-height: 1.8;
+}
+
+.owner-info {
+    color: #666;
+    margin-bottom: 1rem;
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .show-card {
+        margin: 1rem;
+    }
+    
+    .show-img {
+        height: 300px;
+    }
+}
+</style>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
+            <div class="card show-card">
+                <h2 class="h2 text-center mt-4"><%= listing.title %></h2>
+                <img src="<%= listing.image.url %>" class="show-img" alt="<%= listing.title %>">
+                <div class="card-body">
+                    <div class="owner-info">
+                        <i class="fas fa-user"></i> Listed by: <%= listing.owner.username %>
+                    </div>
+                    <div class="listing-info">
+                        <p class="card-text">
+                            <%= listing.description %><br>
+                            <strong>Price:</strong> &#8377; <%= listing.price %><br>
+                            <strong>Location:</strong> <%= listing.location %><br>
+                            <strong>Country:</strong> <%= listing.country %>
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
+
+
 
     
     <div class="row mt-3">
